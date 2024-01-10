@@ -1,23 +1,63 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Layout from './Layout/Layout';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import Login from './components/Login';
+import { useEffect, useState } from 'react';
+import CreateAccount from './components/CreateAccount';
+import { auth } from './server/server';
+
+
+function Loading(){
+
+  return(
+    <div>
+      Loading
+    </div>
+  )
+}
+
+
+
+function Routers(){
+
+  return(
+    <div>
+      <Routes>
+        <Route path='' element={<Layout/>}>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/profile' element={<Profile/>}/>
+        </Route>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/create-account' element={<CreateAccount/>}/>
+      </Routes>
+    </div>
+  )
+}
+
+
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+
+  async function isLogin(){
+    await auth.authStateReady();
+  }
+
+  function initFun(){
+    setLoading(false);
+  }
+
+  useEffect(()=>{
+    isLogin();
+    initFun();
+  },[])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      { loading ? <Loading/> : <Routers/> }
     </div>
   );
 }
