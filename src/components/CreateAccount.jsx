@@ -30,7 +30,6 @@ export default function CreateAccount() {
     }
     else if(name === "checkPassword"){
       setCheckPassword(value);
-
     }
   }
 
@@ -46,16 +45,13 @@ export default function CreateAccount() {
         updateProfile(auth.currentUser,{
           displayName : userName
         })
-        alert('회원가입완료되었습니다');
-        
-        navi('/');
+          navi('/');
       }).catch(()=>{
         setError('존재하는 이메일입니다');
       })
     }
-
     else{
-      setError('비밀번호를 확인해주세요')
+      setError('비밀번호를 확인해주세요');
     }
     
   }

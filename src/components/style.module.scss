@@ -30,6 +30,10 @@
       }
       &[type = submit]{
         cursor: pointer;
+        &:hover{
+          background-color: skyblue;
+          color: white;
+        }
       }
     }
     
@@ -38,5 +42,15 @@
   .error{
     padding: 20px;
     color: tomato;
+  }
+
+  .create_account{
+
+    a{
+      color: white;
+      &:hover{
+        color: skyblue;
+      }
+    }
   }
 }

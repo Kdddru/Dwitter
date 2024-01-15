@@ -7,3 +7,11 @@
 body{
   min-width: 540px;
 }
+
+li{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
