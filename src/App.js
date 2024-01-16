@@ -7,6 +7,7 @@ import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import CreateAccount from './components/CreateAccount';
 import { auth } from './server/server';
+import ProtectRoute from './Layout/ProtectRoute';
 
 
 function Loading(){
@@ -27,8 +28,14 @@ function Routers(){
       <Routes>
         <Route path='' element={<Layout/>}>
           <Route path='/' element={<Home/>}/>
-          <Route path='/profile' element={<Profile/>}/>
+
+          {/** 로그인이 필요한 라우트 */}
+          <Route element={<ProtectRoute/>}>
+            <Route path='/profile' element={<Profile/>}/>
+          </Route>
         </Route>
+        
+        {/** 로그인 관련 라우트 */}
         <Route path='/login' element={<Login/>}/>
         <Route path='/create-account' element={<CreateAccount/>}/>
       </Routes>

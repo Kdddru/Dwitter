@@ -49,7 +49,7 @@ export default function Login() {
       <form onSubmit={onSubmit}>
         <input type='email'onChange={onChange} value={email} name='email' placeholder='이메일' required/>
         <input type='password'onChange={onChange} value={password} name='password'  placeholder='비밀번호' required/>
-        <input type='submit' value='로그인'/>
+        <input type='submit' value='Log In'/>
       </form>
       <p className={style.error}>{error && error}</p>
 
