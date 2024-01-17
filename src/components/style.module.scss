@@ -52,3 +52,59 @@
     }
   }
 }
+
+
+//post
+.post{
+  margin: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+  textarea{
+    width: 100%;
+    height: 20vh;
+    outline: none;
+    resize: none;
+    padding: 10px;
+    font-size: 1.1rem;
+  }
+  
+  
+  .file{
+    display: flex;
+    justify-content: space-between;
+  
+    label{
+      text-align: center;
+      width: 100px;
+      display: inline-block;
+      div{
+        padding: 5px;
+        border: 2px solid grey;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    input{
+      width: 75%;
+      border: 2px solid grey;
+      padding: 10px;
+    }
+  }
+  
+  input{
+    outline: none;
+    height: 35px;
+
+    &[type=file]{
+      display: none;
+    }
+
+    &[type=submit]{
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+}

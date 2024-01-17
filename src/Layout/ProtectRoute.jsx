@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'
 export default function ProtectRoute({children}) {
   const navi = useNavigate();
   
-  onAuthStateChanged(auth,(user)=>{
-    if(!user){  
-      navi('/login');
-    }
-  })
+  // onAuthStateChanged(auth,(user)=>{
+  //   if(!user){  
+  //     navi('/login');
+  //   }
+  // })
 
   return (
     <div>

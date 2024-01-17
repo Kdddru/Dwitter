@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import CreateAccount from './components/CreateAccount';
 import { auth } from './server/server';
 import ProtectRoute from './Layout/ProtectRoute';
+import PostDweetForm from './components/PostDweetForm';
 
 
 function Loading(){
@@ -30,9 +31,8 @@ function Routers(){
           <Route path='/' element={<Home/>}/>
 
           {/** 로그인이 필요한 라우트 */}
-          <Route element={<ProtectRoute/>}>
-            <Route path='/profile' element={<Profile/>}/>
-          </Route>
+          <Route path='/profile' element={<ProtectRoute><Profile/></ProtectRoute>}/>
+          <Route path='/create-dweet' element={<ProtectRoute><PostDweetForm/></ProtectRoute>}/>
         </Route>
         
         {/** 로그인 관련 라우트 */}
