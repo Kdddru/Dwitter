@@ -56,55 +56,76 @@
 
 //post
 .post{
-  margin: auto;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   
-  textarea{
-    width: 100%;
-    height: 20vh;
-    outline: none;
-    resize: none;
-    padding: 10px;
-    font-size: 1.1rem;
-  }
-  
-  
-  .file{
+  form{
+    width: 50%;
+    margin: auto;
+    min-width: 480px;
+    max-width: 700px;
     display: flex;
-    justify-content: space-between;
-  
-    label{
-      text-align: center;
-      width: 100px;
-      display: inline-block;
-      div{
-        padding: 5px;
-        border: 2px solid grey;
+    flex-direction: column;
+    gap: 20px;
+    
+    textarea{
+      width: 100%;
+      height: 30vh;
+      outline: none;
+      resize: none;
+      padding: 20px;
+      font-size: 1.1rem;
+      border-radius: 20px;
+      border: 2px solid white;
+      background-color: transparent;
+      color: white;
+    }
+    
+    
+    .file{
+      display: flex;
+      justify-content: space-between;
+    
+      label{
+        text-align: center;
+        width: 100px;
+        display: inline-block;
+        div{
+          padding: 10px;
+          border: 2px solid white;
+          border-radius: 20px;
+          color: white;
+          cursor: pointer;
+        }
+      }
+      input{
+        width: 75%;
+        border: 2px solid white;
+        border-radius: 20px;
+        padding: 20px;
+        background-color: transparent;
         color: white;
-        cursor: pointer;
       }
     }
+    
     input{
-      width: 75%;
-      border: 2px solid grey;
-      padding: 10px;
-    }
-  }
+      outline: none;
+      height: 35px;
   
-  input{
-    outline: none;
-    height: 35px;
+      &[type=file]{
+        display: none;
+      }
+  
+      &[type=submit]{
+        border-radius: 20px;
+        height: 50px;
+        font-size: 1.5rem;
+        cursor: pointer;
 
-    &[type=file]{
-      display: none;
-    }
+        &:hover{
+          background-color: skyblue;
+          color: white;
+        }
 
-    &[type=submit]{
-      font-size: 1.2rem;
-      cursor: pointer;
+      }
     }
   }
 }
