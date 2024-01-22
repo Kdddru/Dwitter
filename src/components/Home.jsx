@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <div>
-      <p>Home</p>
+      <p style={{color:'white'}}>Home</p>
       {isLogin && <input type='button' value='로그아웃' onClick={onClick}/>}
       <br/>
       <Link to={'/login'}>LogIn</Link>
