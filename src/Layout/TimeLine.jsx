@@ -1,22 +1,48 @@
-import { collection, getDocs, query } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { db } from '../server/server';
+import { auth, db, storage } from '../server/server';
 import style from './style.module.scss'
+import { onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { deleteObject, ref } from 'firebase/storage';
 
 
 
 
 
 
-function Tweets({text, date, username, photo}){
+function Tweets({text, date, username, useruid, photo, id}){
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user)=>{
+      if(user){
+        setUserInfo({
+          uid : user.uid
+        })
+      }
+    })
+  },[])
+
+  async function onDelete(){
+    if(!userInfo.uid || useruid !== userInfo.uid){
+      return
+    }
+    const desertRef = ref(storage, `tweets/${useruid}/${id}`);
+    await deleteObject(desertRef);
+    await deleteDoc(doc(db, 'tweets', id));
+
+
+  }
 
   return(
     <div className={style.tweets}>
       <div className={style.textbox}>
+        {userInfo && <button onClick={onDelete}>X</button>}
         <p>{username}</p>
         <p>{text}</p>
       </div>
-      <img src={photo[0]} alt="이미지" />
+      {photo && <img src={photo[0]} alt="이미지" />}
     </div>
   )
 }
@@ -30,7 +56,7 @@ export default function TimeLine() {
 
 
   async function getData(){
-    const q  = query(collection(db,'tweets'));
+    const q  = query(collection(db,'tweets'), orderBy("date","desc"), limit(3));
     const querySnapshot = await getDocs(q);
     
     const datas = querySnapshot.docs.map((doc)=>{
@@ -51,7 +77,9 @@ export default function TimeLine() {
 
   useEffect(()=>{
     getData();
-  },[])
+  },[tweets])
+
+  
 
   return (
     <div>

@@ -17,6 +17,7 @@ export default function Home() {
     }
   })
 
+  // 로그아웃
   async function onClick(){
     await signOut(auth)
     // .then(()=>{
@@ -26,6 +27,7 @@ export default function Home() {
     // .catch(()=>{
     //   alert('오류가 발생했습니다 다시 시도해주세요!')
     // })
+    setIsLogin(false);
   }
 
   return (
@@ -34,7 +36,7 @@ export default function Home() {
       {isLogin && <input type='button' value='로그아웃' onClick={onClick}/>}
       <br/>
       {!isLogin && <Link to={'/login'}>LogIn</Link>}
-      <TimeLine/>
+      <TimeLine />
     </div>
   )
 }
