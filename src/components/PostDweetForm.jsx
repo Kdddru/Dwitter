@@ -35,7 +35,6 @@ export default function PostDweetForm() {
     setFile([...files]);
   }
   
-  file && file.map((f)=>console.log(f))
   
   async function onSubmit(e){
     e.preventDefault();
@@ -48,6 +47,7 @@ export default function PostDweetForm() {
           useruid : userInfo.uid
         });
 
+        // 사진 파일은 여러개 일수도 있으니 배열로 값넘김
         if(file){
           const urls = await Promise.all(
             file.map(async(f)=>{
@@ -58,7 +58,6 @@ export default function PostDweetForm() {
             })
           )
           
-          console.log(urls)
           await updateDoc(docRef,{
             photo : urls
           });
@@ -79,7 +78,7 @@ export default function PostDweetForm() {
           <label htmlFor='file'>
             <div>파일선택</div>
           </label>
-          <input placeholder='첨부파일'  readOnly/>
+          <input placeholder='첨부파일' value={file && file.map((f)=>f.name)}  readOnly/>
         </div>
         <input type="file" id='file' onChange={onChangeFile} accept='image/png, image/jpeg' multiple />
         <input type='submit' value='post'/>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import style from './style.module.scss'
-import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../server/server';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -25,8 +25,6 @@ export default function Login() {
     e.preventDefault();
 
     if(email && password){
-      await setPersistence(auth, browserSessionPersistence)
-      .then(async()=>{
         await signInWithEmailAndPassword(auth, email, password)
         .then(()=>{
           setError('')
@@ -34,9 +32,6 @@ export default function Login() {
         }).catch(()=>{
           setError('이메일, 비밀번호를 확인해주세요');
         })
-      }).catch(()=>{
-        setError('이메일, 비밀번호를 확인해주세요');
-      })
     }
   }
 
