@@ -130,3 +130,94 @@
     }
   }
 }
+
+
+//profile
+.profile{
+  margin-top: 80px;
+  color: white;
+  text-align: center;
+  img{
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 50%;
+    &:hover{
+      border: 2px solid skyblue;
+    }
+  }
+  input{
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    width: 290px;
+    
+    font-size: 1.2rem;
+    outline: none;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+
+    &:focus{
+      outline: none;
+    }
+    &[type = file]{
+      display: none;
+    }
+    &[type = submit]{
+      cursor: pointer;
+      &:hover{
+        background-color: skyblue;
+        color: white;
+      }
+    }
+
+  }
+  
+}
+
+// .changeProfileModal{
+//   position: absolute;
+//   top: 0;
+//   width: 100%;
+//   height: 100vh;
+//   background-color: rgba($color: #000000, $alpha: 0.9);
+//   color: white;
+//   text-align: center;
+  
+//   div{
+//     z-index: 200;
+//     width: 350px;
+//     height: 450px;
+//     border: 2px solid white ;
+//     padding: 25px;
+//     position: relative;
+//     top: 45%;
+//     left: 50%;
+//     transform: translate(-50%,-50%);
+
+//     img{
+//       border: 2px solid white;
+//       border-radius: 50%;
+//       padding: 15px;
+//     }
+
+//     ul{
+//       margin-top: 80px;
+//       display: flex;
+//       justify-content: space-evenly;
+
+//       button{
+//         width: 35%;
+//         background-color: transparent;
+//         color: white;
+//         border: 2px solid white;
+//         padding: 10px;
+//         font-size: 1.2rem;
+//         cursor: pointer;
+        
+//       }
+//     }
+
+    
+//   }
+// }

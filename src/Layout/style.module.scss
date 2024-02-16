@@ -9,30 +9,27 @@
 
 
 .tweets{
+  position: relative;
   width: 70%;
-  max-width: 590px;
+  max-width: 580px;
+  min-width: 550px;
   margin: auto;
   color: white;
   border: 2px solid lightgray ;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 20px;
-  margin-top: 30px;
+  margin-top: 70px;
   display: flex;
+  cursor: pointer;;
   overflow-y: hidden;
 
+  &:hover{
+    border: 2px solid skyblue;
+  }
 
 
   .textbox{
     width: 80%;
-
-    button{
-      position: absolute;
-      background-color: transparent;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: -8px;
-    }
 
     p:nth-child(2){
       padding: 15px 0 10px 0;
@@ -42,6 +39,24 @@
     img{
       width: 100px;
       height: 100px;
+    }
+
+    button{
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      font-size: 0.8rem;
+      background-color: transparent;
+      color: white;
+      border: none;
+      cursor: pointer;
+      right: 0;
+      margin-right: 5px;
+      margin-top: -15px;
+
+      &:hover{
+        color: skyblue;
+      }
     }
 
 }

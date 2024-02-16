@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { auth, db, storage } from '../server/server';
 import style from './style.module.scss'
 import { onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 import { deleteObject, ref } from 'firebase/storage';
 
 
@@ -11,8 +10,11 @@ import { deleteObject, ref } from 'firebase/storage';
 
 
 
-function Tweets({text, date, username, useruid, photo, id}){
+function Tweets(props){
   const [userInfo, setUserInfo] = useState();
+
+  const {text, username, useruid, photo, id} = props;
+  const {getData} = props;
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user)=>{
@@ -28,21 +30,23 @@ function Tweets({text, date, username, useruid, photo, id}){
     if(!userInfo.uid || useruid !== userInfo.uid){
       return
     }
-    const desertRef = ref(storage, `tweets/${useruid}/${id}`);
-    await deleteObject(desertRef);
+    if(photo){
+      const desertRef = ref(storage, `tweets/${useruid}/${id}`);
+      await deleteObject(desertRef);
+    }
     await deleteDoc(doc(db, 'tweets', id));
-
+    getData();
 
   }
 
   return(
     <div className={style.tweets}>
       <div className={style.textbox}>
-        {userInfo && <button onClick={onDelete}>X</button>}
         <p>{username}</p>
         <p>{text}</p>
       </div>
       {photo && <img src={photo[0]} alt="이미지" />}
+      {userInfo && <button onClick={onDelete}>X</button>}
     </div>
   )
 }
@@ -77,14 +81,14 @@ export default function TimeLine() {
 
   useEffect(()=>{
     getData();
-  },[tweets])
+  },[]);
 
   
 
   return (
-    <div>
+    <div style={{marginTop: '100px'}}>
       {tweets && tweets.map((t)=>(
-        <Tweets key={t.id} {...t} />
+        <Tweets key={t.id} {...t} getData={getData}/>
       ))}
     </div>
   )

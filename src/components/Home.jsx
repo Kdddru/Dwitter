@@ -20,19 +20,12 @@ export default function Home() {
   // 로그아웃
   async function onClick(){
     await signOut(auth)
-    // .then(()=>{
-    //   sessionStorage.removeItem(`firebase:authUser:${apiKey}:[DEFAULT]`);
-    //   setIsLogin(false)
-    // })
-    // .catch(()=>{
-    //   alert('오류가 발생했습니다 다시 시도해주세요!')
-    // })
+
     setIsLogin(false);
   }
 
   return (
     <div>
-      <p style={{color:'white'}}>Home</p>
       {isLogin && <input type='button' value='로그아웃' onClick={onClick}/>}
       <br/>
       {!isLogin && <Link to={'/login'}>LogIn</Link>}
