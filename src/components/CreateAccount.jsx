@@ -62,7 +62,7 @@ export default function CreateAccount() {
     <div className={style.join}>
       <h2>Join D</h2>
       <form onSubmit={onSubmit}>
-        <input placeholder='이름' onChange={onChange}  value={userName} name='name' type='text' required={true}/>
+        <input placeholder='이름 또는 별명' onChange={onChange}  value={userName} name='name' type='text' required={true}/>
         <input placeholder='이메일' onChange={onChange} value={email}  name='email' type='email' required={true}/>
         <input placeholder='비밀번호' onChange={onChange} value={password} name='password' type='password' required={true}/>
         <input placeholder='비밀번호 재확인' onChange={onChange} type='password' name='checkPassword' required={true}/>

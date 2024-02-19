@@ -61,6 +61,10 @@ function App() {
   useEffect(()=>{
     isLogin();
     initFun();
+    //창닫히면 로그아웃
+    // window.onbeforeunload = function(){
+    //   signOut(auth);
+    // }
   },[])
   
   return (

@@ -10,7 +10,7 @@ import { deleteObject, ref } from 'firebase/storage';
 
 
 
-function Tweets(props){
+export function Tweets(props){
   const [userInfo, setUserInfo] = useState();
 
   const {text, username, useruid, photo, id} = props;

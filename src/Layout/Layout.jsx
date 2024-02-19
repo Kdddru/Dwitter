@@ -18,7 +18,7 @@ export default function Layout() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar isLogin={isLogin}/>
       <Outlet/>
     </div>
   )

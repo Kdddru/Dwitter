@@ -29,19 +29,16 @@ export default function Profile() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [photo, setPhoto] = useState();
+
+  //변경사항
+  const [changeName, setChangeName] = useState();
   const [changePhoto, setChangePhoto] = useState();
-  //const [isModal, setIsModal] = useState();
 
   const navi = useNavigate();
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // setUserInfo({
-        //   name : user.displayName,
-        //   email : user.email,
-        //   photo : user.photoURL,
-        // })
         setUserUid(user.uid)
         setName(user.displayName);
         setEmail(user.email);
@@ -50,11 +47,10 @@ export default function Profile() {
     });
   },[])
 
-
-  //프로필 사진 변경 모달 상태 변경
-  // function ChangeIsmodal(bool){
-  //   setIsModal(bool);
-  // }
+  function changeDisplayName(e){
+    setName(e.target.value);
+    setChangeName(e.target.value);
+  }
 
   function changeImg(e){
     const file = e.target.files[0];
@@ -74,38 +70,42 @@ export default function Profile() {
     e.preventDefault();
     const imagesRef = ref(storage,`profile/${userUid}`);
     
-    const result = await uploadBytes(imagesRef,changePhoto);
-    const url = await getDownloadURL(result.ref);
+    //이름을 변경했을때
+    if(changeName){
+      await updateProfile(auth.currentUser,{
+        displayName : changeName
+      }).then(()=>{
+        alert('변경되었습니다')
+        navi('/');
+      })
+    }
 
-    await updateProfile(auth.currentUser,{
-      photoURL : url, displayName : name
-    }).then(()=>{
-      alert('변경되었습니다')
-      navi('/');
-    })
+    //프로필 사진을 바꿨을때
+    if(changePhoto){
+      const result = await uploadBytes(imagesRef,changePhoto);
+      const url = await getDownloadURL(result.ref);
 
-
-
+      await updateProfile(auth.currentUser,{
+        photoURL : url,
+      }).then(()=>{
+        alert('변경되었습니다')
+        navi('/');
+      })
+    }
   }
 
 
   return (
-    <div>
-        <form className={style.profile} onSubmit={onSubmit}>
+    <div className={style.profile}>
+        <form className={style.form} onSubmit={onSubmit}>
           <label htmlFor='file'>
             <img src={photo ? photo : 'logo192.png'} alt="" width={200} height={200}/>
           </label>
           <input type='file' id='file' accept='image/png, image/jpeg, image/jpg' onChange={changeImg}/>
-          <input type="text" value={name ? name : ''} placeholder='이름' onChange={(e)=>{setName(e.target.value)}}/>
-          <input type="text" value={email ? email : ''} placeholder='email'  onChange={(e)=>{setEmail(e.target.value)}} readOnly/>
+          <input type="text" value={name ? name : ''} placeholder='이름' onChange={changeDisplayName}/>
+          <input type="text" value={email ? email : ''} placeholder='email' readOnly/>
           <input type="submit" value="변경" />
         </form>
-      
-      {/** 모달창 */}
-      {/* { 
-        isModal &&
-        <ChangeProfileModal photo={photo} changeState={ChangeIsmodal}/>
-      } */}
     </div>
   )
 }
