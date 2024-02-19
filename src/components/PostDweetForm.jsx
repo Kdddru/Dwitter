@@ -14,52 +14,52 @@ export default function PostDweetForm() {
   const navi = useNavigate();
 
 
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user)=>{
-      if(user){
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
         setUserInfo({
-          name : user.displayName,
-          email : user.email,
-          uid : user.uid
+          name: user.displayName,
+          email: user.email,
+          uid: user.uid
         })
       }
     })
-  },[])
+  }, [])
 
-  function onChange(e){
+  function onChange(e) {
     setText(e.target.value);
   }
-  
-  function onChangeFile(e){
-    const {files} = e.target
+
+  function onChangeFile(e) {
+    const { files } = e.target
     setFile([...files]);
   }
-  
-  
-  async function onSubmit(e){
+
+
+  async function onSubmit(e) {
     e.preventDefault();
-    if(userInfo && text.length > 0){
+    if (userInfo && text.length > 0) {
       try {
         const docRef = await addDoc(collection(db, "tweets"), {
-          text : text,
-          date : Date.now(),
-          username : userInfo.name,
-          useruid : userInfo.uid
+          text: text,
+          date: Date.now(),
+          username: userInfo.name,
+          useruid: userInfo.uid
         });
 
         // 사진 파일은 여러개 일수도 있으니 배열로 값넘김
-        if(file){
+        if (file) {
           const urls = await Promise.all(
-            file.map(async(f)=>{
-              const storageRef = ref(storage,`tweets/${userInfo.uid}/${docRef.id}`);
-              const result = await uploadBytes(storageRef,f);
+            file.map(async (f) => {
+              const storageRef = ref(storage, `tweets/${userInfo.uid}/${docRef.id}`);
+              const result = await uploadBytes(storageRef, f);
               const url = await getDownloadURL(result.ref);
               return url
             })
           )
-          
-          await updateDoc(docRef,{
-            photo : urls
+
+          await updateDoc(docRef, {
+            photo: urls
           });
         }
 
@@ -72,16 +72,16 @@ export default function PostDweetForm() {
 
   return (
     <div className={style.post}>
-      <form onSubmit={onSubmit}> 
-        <textarea name="textArea" onChange={onChange} value={text}/>
+      <form onSubmit={onSubmit}>
+        <textarea name="textArea" onChange={onChange} value={text} />
         <div className={style.file}>
           <label htmlFor='file'>
             <div>파일선택</div>
           </label>
-          <input placeholder='첨부파일' value={file && file.map((f)=>f.name)}  readOnly/>
+          <input placeholder='첨부파일' value={file && file.map((f) => f.name)} readOnly />
         </div>
         <input type="file" id='file' onChange={onChangeFile} accept='image/png, image/jpeg' multiple />
-        <input type='submit' value='post'/>
+        <input type='submit' value='post' />
       </form>
     </div>
   )

@@ -12,9 +12,9 @@ import PostDweetForm from './components/PostDweetForm';
 import { signOut } from 'firebase/auth';
 
 
-function Loading(){
+function Loading() {
 
-  return(
+  return (
     <div>
       Loading
     </div>
@@ -23,22 +23,22 @@ function Loading(){
 
 
 
-function Routers(){
+function Routers() {
 
-  return(
+  return (
     <div>
       <Routes>
-        <Route path='' element={<Layout/>}>
-          <Route path='/' element={<Home/>}/>
+        <Route path='' element={<Layout />}>
+          <Route path='/' element={<Home />} />
 
           {/** 로그인이 필요한 라우트 */}
-          <Route path='/profile' element={<ProtectRoute><Profile/></ProtectRoute>}/>
-          <Route path='/create-dweet' element={<ProtectRoute><PostDweetForm/></ProtectRoute>}/>
+          <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>} />
+          <Route path='/create-dweet' element={<ProtectRoute><PostDweetForm /></ProtectRoute>} />
         </Route>
-        
+
         {/** 로그인 관련 라우트 */}
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/create-account' element={<CreateAccount/>}/>
+        <Route path='/login' element={<Login />} />
+        <Route path='/create-account' element={<CreateAccount />} />
       </Routes>
     </div>
   )
@@ -50,26 +50,26 @@ function App() {
   const [loading, setLoading] = useState(true);
 
 
-  async function isLogin(){
+  async function isLogin() {
     await auth.authStateReady();
   }
 
-  function initFun(){
+  function initFun() {
     setLoading(false);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     isLogin();
     initFun();
     //창닫히면 로그아웃
     // window.onbeforeunload = function(){
     //   signOut(auth);
     // }
-  },[])
-  
+  }, [])
+
   return (
     <div>
-      { loading ? <Loading/> : <Routers/> }
+      {loading ? <Loading /> : <Routers />}
     </div>
   );
 }

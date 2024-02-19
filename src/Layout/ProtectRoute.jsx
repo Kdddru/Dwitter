@@ -4,11 +4,11 @@ import { auth } from '../server/server'
 import { useNavigate } from 'react-router-dom'
 
 
-export default function ProtectRoute({children}) {
+export default function ProtectRoute({ children }) {
   const navi = useNavigate();
-  
-  onAuthStateChanged(auth,(user)=>{
-    if(!user){  
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
       navi('/login');
     }
   })

@@ -1,15 +1,15 @@
-
 //login, join
-.login,.join{
+.login,
+.join {
   text-align: center;
 
-  h2{
+  h2 {
     padding: 30px;
     color: white;
   }
-  
-  
-  form{
+
+
+  form {
     width: 50%;
     max-width: 540px;
     display: flex;
@@ -17,36 +17,39 @@
     flex-direction: column;
     gap: 20px;
 
-    input{
+    input {
       padding: 14px;
       border: none;
       border-radius: 50px;
       font-size: 1.1rem;
 
-      &:focus{
+      &:focus {
         outline: none;
       }
-      &[type = submit]{
+
+      &[type=submit] {
         cursor: pointer;
-        &:hover{
+
+        &:hover {
           background-color: skyblue;
           color: white;
         }
       }
     }
-    
+
   }
 
-  .error{
+  .error {
     padding: 20px;
     color: tomato;
   }
 
-  .create_account{
+  .create_account {
 
-    a{
+    a {
       color: white;
-      &:hover{
+
+      &:hover {
         color: skyblue;
       }
     }
@@ -55,9 +58,9 @@
 
 
 //post
-.post{
-  
-  form{
+.post {
+
+  form {
     width: 50%;
     margin: auto;
     margin-top: 50px;
@@ -66,8 +69,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
-    textarea{
+
+    textarea {
       width: 100%;
       height: 30vh;
       outline: none;
@@ -79,17 +82,18 @@
       background-color: transparent;
       color: white;
     }
-    
-    
-    .file{
+
+
+    .file {
       display: flex;
       justify-content: space-between;
-    
-      label{
+
+      label {
         text-align: center;
         width: 100px;
         display: inline-block;
-        div{
+
+        div {
           padding: 10px;
           border: 2px solid white;
           border-radius: 20px;
@@ -97,7 +101,8 @@
           cursor: pointer;
         }
       }
-      input{
+
+      input {
         width: 75%;
         border: 2px solid white;
         border-radius: 20px;
@@ -106,22 +111,22 @@
         color: white;
       }
     }
-    
-    input{
+
+    input {
       outline: none;
       height: 35px;
-  
-      &[type=file]{
+
+      &[type=file] {
         display: none;
       }
-  
-      &[type=submit]{
+
+      &[type=submit] {
         border-radius: 20px;
         height: 50px;
         font-size: 1.5rem;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
           background-color: skyblue;
           color: white;
         }
@@ -133,45 +138,51 @@
 
 
 //profile
-.profile{
-  .form{
+.profile {
+  .form {
     margin-top: 80px;
     color: white;
     text-align: center;
-    img{
+
+    img {
       cursor: pointer;
       border: 2px solid white;
       border-radius: 50%;
-      &:hover{
+
+      &:hover {
         border: 2px solid skyblue;
       }
     }
-    input{
+
+    input {
       display: block;
       margin: auto;
       margin-top: 20px;
       width: 290px;
-      
+
       font-size: 1.2rem;
       outline: none;
       padding: 15px;
       border: none;
       border-radius: 50px;
-  
-      &:focus{
+
+      &:focus {
         outline: none;
       }
-      &[type = file]{
+
+      &[type=file] {
         display: none;
       }
-      &[type = submit]{
+
+      &[type=submit] {
         cursor: pointer;
-        &:hover{
+
+        &:hover {
           background-color: skyblue;
           color: white;
         }
       }
-  
+
     }
   }
 }

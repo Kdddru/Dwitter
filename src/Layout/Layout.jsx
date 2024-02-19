@@ -8,18 +8,18 @@ import { auth } from '../server/server'
 export default function Layout() {
   const [isLogin, setLogin] = useState(false);
 
-  useEffect(()=>{
-    onAuthStateChanged(auth,(user)=>{
-      if(user){
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
         setLogin(true)
       }
     })
-  },[])
+  }, [])
 
   return (
     <div>
-      <Navbar isLogin={isLogin}/>
-      <Outlet/>
+      <Navbar isLogin={isLogin} />
+      <Outlet />
     </div>
   )
 }
