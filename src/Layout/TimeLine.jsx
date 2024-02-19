@@ -27,16 +27,17 @@ export function Tweets(props){
   },[])
 
   async function onDelete(){
-    if(!userInfo.uid || useruid !== userInfo.uid){
-      return
+    if(props){
+      if(!userInfo.uid || useruid !== userInfo.uid){
+        return
+      }
+      if(photo){
+        const desertRef = ref(storage, `tweets/${useruid}/${id}`);
+        await deleteObject(desertRef);
+      }
+      await deleteDoc(doc(db, 'tweets', id));
+      getData();
     }
-    if(photo){
-      const desertRef = ref(storage, `tweets/${useruid}/${id}`);
-      await deleteObject(desertRef);
-    }
-    await deleteDoc(doc(db, 'tweets', id));
-    getData();
-
   }
 
   return(

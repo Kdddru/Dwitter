@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import style from './style.module.scss'
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
-import { auth, storage } from '../server/server';
+import { auth, db, storage } from '../server/server';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import { Tweets } from '../Layout/TimeLine';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
 
-// function ChangeProfileModal({photo,changeState}){
-  
+function ProfileForm(props){
 
+  const{userUid, userName, userEmail, userPhoto} = props
 
-//   return(
-//     <div className={style.changeProfileModal}>
-//       <div>
-//         <img src={photo ? photo : 'logo192.png'} alt="" width={250}/>
-//         <ul>
-//           <button>변경</button>
-//           <button onClick={()=>changeState(false)}>취소</button>
-//         </ul>
-//       </div>
-//     </div>
-//   )
-// }
-
-export default function Profile() {
-  const [userUid, setUserUid] = useState();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [photo, setPhoto] = useState();
+  const [name, setName] = useState(userName);
+  const [photo, setPhoto] = useState(userPhoto);
 
   //변경사항
   const [changeName, setChangeName] = useState();
@@ -36,22 +22,13 @@ export default function Profile() {
 
   const navi = useNavigate();
 
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserUid(user.uid)
-        setName(user.displayName);
-        setEmail(user.email);
-        setPhoto(user.photoURL);
-      }
-    });
-  },[])
-
+  //displayname 변경
   function changeDisplayName(e){
     setName(e.target.value);
     setChangeName(e.target.value);
   }
 
+  //프로필 이미지 주소값 변경
   function changeImg(e){
     const file = e.target.files[0];
 
@@ -94,18 +71,78 @@ export default function Profile() {
     }
   }
 
+  return(
+    <form className={style.form} onSubmit={onSubmit}>
+      <label htmlFor='file'>
+        <img src={photo ? photo : userPhoto ? userPhoto : 'logo192.png'} alt="" width={200} height={200}/>
+      </label>
+        <input type='file' id='file' accept='image/png, image/jpeg, image/jpg' onChange={changeImg}/>
+        <input type="text" value={name ? name : userName ? userName : ''} placeholder='이름' onChange={changeDisplayName}/>
+        <input type="text" value={userEmail ? userEmail : ''} placeholder='email' readOnly/>
+        <input type="submit" value="변경" />
+     </form>
+  )
+}
+
+
+function MyTweets(props){
+
+  const {userUid} = props;
+
+
+  async function getTweets(){
+    const tweetsRef = collection(db, 'tweets');
+    const q = query(tweetsRef, where("useruid", '==' , userUid));
+
+    const querySnapshot = await getDocs(q);
+    
+    console.log(querySnapshot);
+  };
+
+
+    useEffect(()=>{
+      if(userUid){
+        getTweets();
+      }
+    },[userUid])
+
+
+  return(
+    <div>
+      <Tweets/>
+    </div>
+  )
+}
+
+
+export default function Profile() {
+  const [userInfo, setUserInfo] = useState();
+
+  //로그인 정보 들고오기
+  function getUser(){
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+        setUserInfo({
+          userUid : user.uid,
+          userName : user.displayName,
+          userEmail : user.email,
+          userPhoto : user.photoURL
+        })}
+    })
+  }
+
+
+  useEffect(()=>{
+    getUser();
+  },[])
+
+  
 
   return (
     <div className={style.profile}>
-        <form className={style.form} onSubmit={onSubmit}>
-          <label htmlFor='file'>
-            <img src={photo ? photo : 'logo192.png'} alt="" width={200} height={200}/>
-          </label>
-          <input type='file' id='file' accept='image/png, image/jpeg, image/jpg' onChange={changeImg}/>
-          <input type="text" value={name ? name : ''} placeholder='이름' onChange={changeDisplayName}/>
-          <input type="text" value={email ? email : ''} placeholder='email' readOnly/>
-          <input type="submit" value="변경" />
-        </form>
+      <ProfileForm {...userInfo}/>
+      <MyTweets {...userInfo}/>
     </div>
   )
 }
