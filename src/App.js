@@ -26,7 +26,7 @@ function Routers() {
   return (
     <div>
       <Routes>
-        <Route path='' element={<Layout />}>
+        <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
 
           {/** 로그인이 필요한 라우트 */}
