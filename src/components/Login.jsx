@@ -40,7 +40,7 @@ export default function Login() {
 
   return (
     <div className={style.login}>
-
+      <h2 onClick={()=>{navi('/')}}>Dwitter</h2>
       <h2>Login</h2>
 
       <form onSubmit={onSubmit}>

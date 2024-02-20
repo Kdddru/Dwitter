@@ -47,7 +47,7 @@ export function Tweets(props) {
         <p>{text}</p>
       </div>
       {photo && <img src={photo[0]} alt="이미지" />}
-      {userInfo && <button onClick={onDelete}>X</button>}
+      {userInfo && id && userInfo.id === id && <button onClick={onDelete}>X</button>}
     </div>
   )
 }

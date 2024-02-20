@@ -9,8 +9,6 @@ import CreateAccount from './components/CreateAccount';
 import { auth } from './server/server';
 import ProtectRoute from './Layout/ProtectRoute';
 import PostDweetForm from './components/PostDweetForm';
-import { signOut } from 'firebase/auth';
-
 
 function Loading() {
 

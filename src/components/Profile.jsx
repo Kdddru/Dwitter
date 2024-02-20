@@ -8,7 +8,7 @@ import { Tweets } from '../Layout/TimeLine';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
-
+// 프로필 변경창
 function ProfileForm(props) {
 
   const { userUid, userName, userEmail, userPhoto } = props
@@ -84,19 +84,33 @@ function ProfileForm(props) {
   )
 }
 
-
+// 내 트윗 창
 function MyTweets(props) {
+  const [userTweets, setUserTweets] = useState();
 
   const { userUid } = props;
 
 
   async function getTweets() {
-    const tweetsRef = collection(db, 'tweets');
+    const tweetsRef = collection(db, "tweets");
     const q = query(tweetsRef, where("useruid", '==', userUid));
 
     const querySnapshot = await getDocs(q);
 
-    console.log(querySnapshot);
+    const tweets = querySnapshot.docs.map((doc)=>{
+      const { text, date, username, useruid, photo } = doc.data();
+      
+      return {
+        text,
+        date,
+        username,
+        useruid,
+        photo,
+        id: doc.id
+      }
+    })
+
+    setUserTweets(tweets);
   };
 
 
@@ -108,8 +122,11 @@ function MyTweets(props) {
 
 
   return (
-    <div>
-      <Tweets />
+    <div className={style.mytweets}>
+      { userTweets && userTweets.map((tweet,i)=>(
+        <Tweets {...tweet} key={i}/>
+      ))
+      }
     </div>
   )
 }
