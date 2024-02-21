@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Layout from './Layout/Layout';
 import Home from './components/Home';
@@ -46,6 +46,7 @@ function Routers() {
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const navi = useNavigate();
 
 
   async function isLogin() {
@@ -63,6 +64,7 @@ function App() {
     // window.onbeforeunload = function(){
     //   signOut(auth);
     // }
+    navi('/');
   }, [])
 
   return (
