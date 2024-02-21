@@ -9,6 +9,7 @@ import CreateAccount from './components/CreateAccount';
 import { auth } from './server/server';
 import ProtectRoute from './Layout/ProtectRoute';
 import PostDweetForm from './components/PostDweetForm';
+import { signOut } from 'firebase/auth';
 
 function Loading() {
 
@@ -61,10 +62,9 @@ function App() {
     isLogin();
     initFun();
     //창닫히면 로그아웃
-    // window.onbeforeunload = function(){
-    //   signOut(auth);
-    // }
-    navi('/');
+    window.onbeforeunload = function(){
+      signOut(auth);
+    }
   }, [])
 
   return (
