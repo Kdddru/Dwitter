@@ -26,8 +26,8 @@ function Routers() {
   return (
     <div>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path='/' element={<Home />} />
+        <Route path='/' element={<Layout />}>
+          <Route path='' element={<Home />} />
 
           {/** 로그인이 필요한 라우트 */}
           <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>} />

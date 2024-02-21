@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './style.module.scss'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { auth } from '../server/server';
 import { useNavigate } from 'react-router-dom';
 
@@ -55,6 +55,15 @@ export default function CreateAccount() {
     }
 
   }
+
+
+  useEffect(()=>{
+    onAuthStateChanged(auth,(user)=>{
+      if(user){
+        navi('/')
+      }
+    })
+  },[])
 
 
 

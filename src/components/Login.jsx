@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './style.module.scss'
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../server/server';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -35,7 +35,13 @@ export default function Login() {
     }
   }
 
-
+  useEffect(()=>{
+    onAuthStateChanged(auth,(user)=>{
+      if(user){
+        navi('/');
+      }
+    })
+  },[])
 
 
   return (
